@@ -1,33 +1,14 @@
+
 resource "aws_vpc" "terraform_vpc" {
   cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
 
   tags = {
-    Name = "tf-vpc"
-    CC = "123456"
-    Owner = "DevOps"
-  }
-}
-
-# Correcao primeira issue
-resource "aws_flow_log" "example" {
-  log_destination      = "arn:aws:s3:::clc15-vini-terraform"
-  log_destination_type = "s3"
-  traffic_type         = "ALL"
-  vpc_id               = aws_vpc.terraform_vpc.id
-}
-
-# Correcao segunda issue
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.terraform_vpc.id
-  
-  tags = {
-    Name = "my-iac-sg"
+    Name = "clc15-tf-vpc"
   }
 }
 
 ## Cria as 4 subnets em suas respectivas AZs ##
-
 ## Cria subnets na AZ 1A
 resource "aws_subnet" "subnet_public_1a" {
   vpc_id     = aws_vpc.terraform_vpc.id
@@ -79,7 +60,7 @@ resource "aws_internet_gateway" "tf_igw" {
   }
 }
 
-## Cria a tabela de rota publica apontando para o igw ##
+## Cria a tabela de rota publica apontando para o IGW ##
 resource "aws_route_table" "tf_public_rt" {
   vpc_id = aws_vpc.terraform_vpc.id
 
