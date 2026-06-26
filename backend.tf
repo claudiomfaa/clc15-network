@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "clc15-vini-terraform"
+    bucket = "clc15-claudio-terraform"
     key    = "network/terraform.tfstate"
     region = "us-east-1"
   }
